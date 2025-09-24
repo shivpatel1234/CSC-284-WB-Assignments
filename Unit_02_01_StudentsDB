@@ -1,0 +1,222 @@
+/*Shiv Patel
+CSC-284-WB
+Professor Selvakumar
+ 9/20/2025
+ Unit 2, Assignment 1: Student Record Managaer
+*/
+
+
+#include <iostream> // for input and output
+#include <vector>   // for using vector
+#include <string>   // for using string type
+#include <cctype>   // for checking characters
+#include <cstdlib>  // for functions such as atoi
+
+using namespace std;
+
+// structure to hold one student's info
+struct Student {
+    int id;
+    string name;
+    int age;
+    string major;
+    string email;
+};
+
+// read an integer from the input with checking
+int readInt(const string& prompt) {
+    
+    while (true) {
+        cout << prompt;
+        string line;
+        
+        if (!getline(cin, line)) continue;
+
+        if (line.size() == 0) {
+            cout << "Invalid number. Try again.\n";
+            
+            continue;
+        }
+
+        // check if string is a valid integer
+        int i = 0;
+        
+        if (line[0] == '+' || line[0] == '-') i = 1;
+        bool ok = true;
+        
+        for (; i < (int)line.size(); i++) {
+            if (!isdigit((unsigned char)line[i])) { ok = false; break; }
+        }
+        if (!ok) {
+            cout << "Invalid number. Try again.\n";
+            
+            continue;
+        }
+
+        // uses atoi for conversion 
+        int value = atoi(line.c_str());
+        
+        return value;
+    }
+}
+
+// add a new student to the list 
+void addStudent(vector<Student>& students) {
+    cout << "\n-- Add Student --\n";
+
+    // local variable student
+    Student s;
+
+    s.id = readInt("ID: ");
+    cout << "Name: ";
+    
+    getline(cin, s.name);
+    s.age = readInt("Age: ");
+    
+    cout << "Major: ";
+    getline(cin, s.major);
+    
+    cout << "Email: ";
+    getline(cin, s.email);
+
+    students.push_back(s);
+    cout << "Student added.\n\n";
+}
+
+// shows all students
+void displayAll(const vector<Student>& students) {
+    
+    cout << "\n-- All Students --\n";
+    if (students.empty()) {
+        cout << "No students to display.\n\n";
+        
+        return;
+    }
+
+    cout << "ID\tName\tAge\tMajor\tEmail\n";
+    cout << "---------------------------------------------\n";
+
+    for (int i = 0; i < (int)students.size(); i++) {
+        
+        cout << students[i].id << '\t'
+            << students[i].name << '\t'
+            << students[i].age << '\t'
+            << students[i].major << '\t'
+            << students[i].email << '\n';
+    }
+    
+    cout << "\n";
+}
+
+// Search by student's ID
+void searchById(const vector<Student>& students) {
+    
+    cout << "\n-- Search by ID --\n";
+    int target = readInt("Enter ID: ");
+    
+    for (int i = 0; i < (int)students.size(); i++) {
+        if (students[i].id == target) {
+            cout << "Found: ID=" << students[i].id
+                << "  Name=" << students[i].name
+                << "  Age=" << students[i].age
+                << "  Major=" << students[i].major
+                << "  Email=" << students[i].email << "\n\n";
+            
+            return;
+        }
+    }
+    cout << "Student not found.\n\n";
+}
+
+// Search by name of student
+void searchByName(const vector<Student>& students) {
+    
+    cout << "\n-- Search by Name --\n";
+    cout << "Enter full name: ";
+    
+    string name;
+    getline(cin, name);
+
+    for (int i = 0; i < (int)students.size(); i++) {
+        if (students[i].name == name) {
+            cout << "Found: ID=" << students[i].id
+                << "  Name=" << students[i].name
+                << "  Age=" << students[i].age
+                << "  Major=" << students[i].major
+                << "  Email=" << students[i].email << "\n\n";
+            
+            return;
+        }
+    }
+    cout << "Student not found.\n\n";
+}
+
+// Count how many students are in each major
+void countByMajor(const vector<Student>& students) {
+    
+    cout << "\n-- Count by Major --\n";
+    
+    if (students.empty()) {
+        cout << "No students available.\n\n";
+        
+        return;
+    }
+
+    vector<string> majors; // list of majors
+    vector<int> counts;    // counts for each major
+
+    for (int i = 0; i < (int)students.size(); i++) {
+        int pos = -1;
+        
+        for (int j = 0; j < (int)majors.size(); j++) {
+            if (majors[j] == students[i].major) { pos = j; break; }
+        }
+        
+        if (pos == -1) {
+            majors.push_back(students[i].major);
+            counts.push_back(1);
+        }
+        else {
+            counts[pos]++;
+        }
+    }
+
+    for (int i = 0; i < (int)majors.size(); i++) {
+        cout << majors[i] << ": " << counts[i] << '\n';
+    }
+    cout << "\n";
+}
+
+// Displays the menu and gets the choice from user
+int menu() {
+    cout << "=============================\n";
+    cout << " Student Records Manager\n";
+    cout << "=============================\n";
+    cout << "1) Add Student\n";
+    cout << "2) Display All Students\n";
+    cout << "3) Search by ID\n";
+    cout << "4) Search by Name\n";
+    cout << "5) Count Students by Major\n";
+    cout << "6) Exit\n";
+    return readInt("Choose an option (1-6): ");
+}
+
+int main() {
+    
+    vector<Student> students; // all students stored here
+    bool running = true;
+
+    while (running) {
+        int choice = menu();
+        switch (choice) {
+        case 1: addStudent(students); break;
+        case 2: displayAll(students); break;
+        case 3: searchById(students); break;
+        case 4: searchByName(students); break;
+        case 5: countByMajor(students); break;
+        case 6: cout << "Goodbye!\n"; running = false; break;
+        default: cout << "Please choose 1-6.\n\n"; break;
+        }
+    }
+    return 0;
+}
