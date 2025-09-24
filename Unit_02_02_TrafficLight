@@ -1,0 +1,72 @@
+/*Shiv Patel
+CSC-284-WB
+Professor Selvakumar
+Unit 2 Assignment 2: Fix this Code!
+09/20/2025
+*/
+
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+class TrafficLightSimulator {
+private:
+
+    // order of colors
+    vector<string> colors;
+
+    // index of the current color (0 = Red, 1 = Green, 2 = Yellow)
+    int currentIndex;
+
+public:
+
+    // sets the first color to red, then green and last yellow
+    TrafficLightSimulator() {
+
+        colors = { "Red", "Green", "Yellow" };
+        currentIndex = 0;
+    }
+
+    // print the current color. Then moves on to the next colors
+    void stepOnce() {
+
+        cout << colors[currentIndex] << '\n';
+        currentIndex++;
+
+        if (currentIndex == (int)colors.size()) {
+            currentIndex = 0; // wrap back to Red
+        }
+    }
+
+    // runs for a given number of steps
+    void run(int steps) {
+
+        for (int i = 0; i < steps; i++) {
+            stepOnce();
+        }
+    }
+};
+
+int main() {
+    
+    cout << "Traffic Light Simulator\n";
+    cout << "Order: Red -> Green -> Yellow -> Red ...\n\n";
+
+    int cycles; //how many steps to print
+    cout << "How many steps should the light run? ";
+
+    //checks for a non-negative integer
+    while (!(cin >> cycles) || cycles < 0) {
+        cout << "Please enter a non-negative number: ";
+        cin.clear();
+        cin.ignore(10000, '\n');
+    }
+
+    TrafficLightSimulator sim; // creates the simulator object
+    
+    sim.run(cycles);
+
+    return 0;
+}
+;
