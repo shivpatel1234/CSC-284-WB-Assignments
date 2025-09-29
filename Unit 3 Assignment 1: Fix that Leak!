@@ -1,0 +1,33 @@
+// Shiv Patel 
+// CSC-284-WB
+// Professor Selvakumar
+// 9/28/2025
+// Unit:03:01 MemoryLeak
+
+#include <iostream>
+#include <thread>
+#include <chrono>
+
+using namespace std;
+
+int main() {
+    
+    cout << "Memory demo (1 MB/sec). Close window or press Ctrl+C to stop.\n";
+    const int MB = 1024 * 1024;
+
+    while (true) {
+        
+        // allocate ~1 MB
+        char* p = new char[MB];
+
+        // touch memory so it shows up in Task/Activity Monitor
+        for (int i = 0; i < MB; i += 4096) p[i] = 1;  // touch each page
+
+       
+        //COMMENT OUT THIS SINGLE LINE TO MAKE IT LEAK
+        delete[] p;
+
+
+        this_thread::sleep_for(chrono::seconds(1));
+    }
+}
