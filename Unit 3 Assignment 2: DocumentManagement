@@ -1,0 +1,88 @@
+//Shiv Patel
+// CSC-284-WB
+// Professor Selvakumar
+// 9/28/2025
+// Unit 3 Assignment 2: DocumentManagement
+
+#include <iostream>
+#include <memory>
+#include <string>
+#include <utility> 
+
+using namespace std;
+
+class Document {
+public:
+    // document title
+    string title;                  
+    
+    // text stored on the heap
+    unique_ptr<string> content;
+
+    // create a document and show a message
+    Document(const string& t, const string& c)
+        :title(t), content(make_unique<string>(c)) {
+        cout << "Document \"" << title << "\" created.\n";
+    }
+
+    // show when the document is cleaned up
+    ~Document() {
+        cout << "Document \"" << title << "\" destroyed.\n";
+    }
+
+    // print the title and content
+    void show() const {
+        cout << "Title: " << title << "\n";
+        cout << "Content: " << *content << "\n";
+    }
+
+    // replace the content text
+    void edit(const string& newText) {
+        *content = newText;
+    }
+};
+
+    // helper returns a unique-owned Document
+    unique_ptr<Document> createDocument(const string& title,
+    const string& content) {
+    return make_unique<Document>(title, content);
+}
+
+    // helper returns a shared-owned Document
+    shared_ptr<Document> createSharedDocument(const string& title,
+    const string& content) {
+    return make_shared<Document>(title, content);
+}
+
+int main() {
+    cout << "=== Unique_ptr demonstration ===\n";
+
+    auto doc1 = createDocument("My Unique Doc", "Initial content");
+    doc1->show();
+
+    // transfer ownership from doc1 to doc2 (doc1 becomes null)
+    auto doc2 = move(doc1);
+    cout << "doc1 no longer owns the document\n";
+
+    doc2->edit("Updated content");
+    doc2->show();
+
+    cout << "\n=== Shared_ptr demonstration ===\n";
+
+    auto doc3 = createSharedDocument("Shared Doc", "Shared content");
+    doc3->show();
+
+    // share ownership with a second handle
+    auto docView = doc3;
+    docView->edit("Edited by viewer");
+    doc3->show();
+
+    cout << "End of main()\n";
+
+    // release this way to match sample output
+    doc2.reset();    // destroys "My Unique Doc"
+    docView.reset(); // decrease shared count
+    doc3.reset();    // destroys "Shared Doc"
+
+    return 0;
+}
