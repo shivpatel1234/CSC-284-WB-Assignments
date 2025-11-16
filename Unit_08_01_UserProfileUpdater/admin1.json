@@ -1,0 +1,21 @@
+{
+    "email": "alice.admin@newcompany.com",
+    "id": 1,
+    "name": "Alice Admin",
+    "permissions": [
+        {
+            "granted_at": "2024-10-05",
+            "level": "full",
+            "permission": "manage_users"
+        },
+        {
+            "granted_at": "2024-09-25",
+            "level": "read-only",
+            "permission": "view_content"
+        }
+    ],
+    "status": {
+        "since": "2024-10-01",
+        "status": "enabled"
+    }
+}

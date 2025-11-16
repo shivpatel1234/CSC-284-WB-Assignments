@@ -1,0 +1,16 @@
+{
+    "email": "ed.editor@otherdomain.com",
+    "id": 4,
+    "name": "Ed Editor",
+    "permissions": [
+        {
+            "granted_at": "2024-09-25",
+            "level": "read-only",
+            "permission": "view_content"
+        }
+    ],
+    "status": {
+        "since": "2024-10-01",
+        "status": "disabled"
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "email": "eve.editor@newcompany.com",
+    "id": 3,
+    "name": "Eve Editor",
+    "permissions": [
+        {
+            "granted_at": "2024-09-25",
+            "level": "read-only",
+            "permission": "view_content"
+        }
+    ],
+    "status": {
+        "since": "2024-10-01",
+        "status": "enabled"
+    }
+}

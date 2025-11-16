@@ -1,0 +1,10 @@
+{
+    "email": "victor.viewer@newcompany.com",
+    "id": 5,
+    "name": "Victor Viewer",
+    "permissions": [],
+    "status": {
+        "since": "2024-10-01",
+        "status": "enabled"
+    }
+}
