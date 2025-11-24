@@ -1,6 +1,6 @@
 #include "ChatClientUI.h"
 
-// Window class - simple wrapper for a curses window
+// Window class: Simple wrapper for a curses window
 Window::Window(int h, int w, int y, int x)
 {
     height = h;
@@ -44,7 +44,7 @@ void Window::refreshWindow() {
     wrefresh(win);
 }
 
-// MessageArea - shows chat text
+// MessageArea: Shows chat text
 MessageArea::MessageArea(int h, int w, int y, int x)
     : Window(h, w, y, x)
 {
@@ -100,7 +100,7 @@ void MessageArea::draw() {
     }
 }
 
-// RoomList - list of chat rooms
+// RoomList: List of chat rooms
 RoomList::RoomList(int h, int w, int y, int x)
     : Window(h, w, y, x)
 {
@@ -167,7 +167,7 @@ void RoomList::draw() {
 }
 
 
-// InputArea - lets user type messages
+// InputArea: Lets user type messages
 InputArea::InputArea(int h, int w, int y, int x)
     : Window(h, w, y, x)
 {
@@ -211,7 +211,7 @@ void InputArea::draw() {
 }
 
 
-// ChatClientUI - main controller for everything
+// ChatClientUI: Main controller for everything
 ChatClientUI::ChatClientUI() {
     
     messageArea = NULL;

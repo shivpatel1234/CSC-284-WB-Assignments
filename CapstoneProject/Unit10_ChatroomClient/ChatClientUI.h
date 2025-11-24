@@ -8,10 +8,9 @@
 
 using namespace std;
 
-/*
-    This class is just a simple wrapper around a WINDOW*
-    so we can draw borders and clear the inside easily.
-*/
+    // This class is just a simple wrapper around a WINDOW
+    // so we can draw borders and clear the inside easily
+
 class Window {
 
 protected:
@@ -31,10 +30,10 @@ public:
     void refreshWindow();
 };
 
-/*
-    This window shows chat messages.
-    It also supports simple scrolling.
-*/
+
+    //This window shows chat messages
+    //It also supports simple scrolling
+
 class MessageArea : public Window {private:
     vector<string> messages;
     int scrollOffset;
@@ -48,9 +47,9 @@ public:
     void draw();
 };
 
-/*
-    This window shows the list of chat rooms.
-*/
+
+    //This window shows the list of chat rooms
+
 class RoomList : public Window {
 
 private:
@@ -67,9 +66,9 @@ public:
     void draw();
 };
 
-/*
-    This window is where the user types a message.
-*/
+
+    //This window is where the user types a message
+
 class InputArea : public Window {
 
 private:
@@ -84,9 +83,9 @@ public:
     void draw();
 };
 
-/*
-    This class controls the entire UI and handles keyboard input.
-*/
+
+    //This class controls the entire UI and handles keyboard input
+
 class ChatClientUI {
 
 private:
